@@ -31,6 +31,8 @@ google-api-core = "^2.7.1"
 google-auth = "^2.6.3"
 google-cloud-speech = "^2.13.1"
 googleapis-common-protos = "^1.56.0"
+pyvirtualcam = "^0.9.1"
+pygame = "^2.1.2"
 
 [tool.poetry.dev-dependencies]
 
