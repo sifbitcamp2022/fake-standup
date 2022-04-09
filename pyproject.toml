@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "fake-standup"
+version = "0.1.0"
+description = ""
+authors = ["Ryan Downing <ryansdowning1@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^1.22.3"
+opencv-python = "^4.5.5"
+ipykernel = "^6.12.1"
+pyvirtualcam = "^0.9.1"
+pygame = "^2.1.2"
+torch = "^1.11.0"
+inflect = "^5.3.0"
+librosa = "^0.8.1"
+matplotlib = "^3.5.1"
+numpy = "^1.20.3"
+Pillow = "^8.4.0"
+PyQt5 = "^5.15.6"
+scikit-learn = "^1.0.2"
+scipy = "^1.7.3"
+sounddevice = "^0.4.3"
+SoundFile = "^0.10.3"
+tqdm = "^4.62.3"
+umap-learn = "^0.5.2"
+Unidecode = "^1.3.2"
+urllib3 = "^1.26.7"
+visdom = "^0.1.8.9"
+webrtcvad = "^2.0.10"
+
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+pre-commit = "^2.18.1"
+isort = "^5.10.1"
+pylint = "^2.13.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
