@@ -8,6 +8,7 @@ authors = ["Ryan Downing <ryansdowning1@gmail.com>"]
 python = "^3.9"
 numpy = "^1.22.3"
 opencv-python = "^4.5.5"
+pyfakewebcam = "^0.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
