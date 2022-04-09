@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 21.9b0
+    hooks:
+      - id: black
+        args: [--safe, --line-length=120]
+
+  - repo: local
+    hooks:
+      - id: isort
+        name: isort
+        entry: poetry run isort video/ tests/ --line-length=120 --profile=black
+        language: system
+        always_run: true
+        pass_filenames: false
+
+      - id: pylint
+        name: pylint
+        entry: poetry run pylint video --max-line-length=120 --fail-under=9
+        language: system
+        always_run: true
+        pass_filenames: false
+
+      - id: pytest
+        name: pytest
+        entry: poetry run pytest tests/
+        language: system
+        always_run: false
+        pass_filenames: false
