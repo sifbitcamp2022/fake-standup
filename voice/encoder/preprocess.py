@@ -6,9 +6,9 @@ from pathlib import Path
 import numpy as np
 from tqdm import tqdm
 
-from encoder import audio
-from encoder.config import librispeech_datasets, anglophone_nationalites
-from encoder.params_data import *
+from voice.encoder import audio
+from voice.encoder.config import librispeech_datasets, anglophone_nationalites
+from voice.encoder.params_data import *
 
 
 _AUDIO_EXTENSIONS = ("wav", "flac", "m4a", "mp3")
@@ -27,7 +27,7 @@ class DatasetLog:
         self._log_params()
 
     def _log_params(self):
-        from encoder import params_data
+        from voice.encoder import params_data
         self.write_line("Parameter values:")
         for param_name in (p for p in dir(params_data) if not p.startswith("__")):
             value = getattr(params_data, param_name)

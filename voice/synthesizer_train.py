@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from synthesizer.hparams import hparams
-from synthesizer.train import train
+from voice.synthesizer.hparams import hparams
+from voice.synthesizer.train import train
 from utils.argutils import print_args
 import argparse
 

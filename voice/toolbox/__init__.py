@@ -6,11 +6,11 @@ from time import perf_counter as timer
 import numpy as np
 import torch
 
-from encoder import inference as encoder
-from synthesizer.inference import Synthesizer
+from voice.encoder import inference as encoder
+from voice.synthesizer.inference import Synthesizer
 from toolbox.ui import UI
 from toolbox.utterance import Utterance
-from vocoder import inference as vocoder
+from voice.vocoder import inference as vocoder
 
 
 # Use this directory structure for your datasets, or modify it to fit your needs

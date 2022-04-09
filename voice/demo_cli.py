@@ -7,12 +7,12 @@ import numpy as np
 import soundfile as sf
 import torch
 
-from encoder import inference as encoder
-from encoder.params_model import model_embedding_size as speaker_embedding_size
-from synthesizer.inference import Synthesizer
+from voice.encoder import inference as encoder
+from voice.encoder.params_model import model_embedding_size as speaker_embedding_size
+from voice.synthesizer.inference import Synthesizer
 from utils.argutils import print_args
 from utils.default_models import ensure_default_models
-from vocoder import inference as vocoder
+from voice.vocoder import inference as vocoder
 
 
 if __name__ == '__main__':

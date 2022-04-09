@@ -2,8 +2,8 @@ import argparse
 import os
 from pathlib import Path
 
-from synthesizer.hparams import hparams
-from synthesizer.synthesize import run_synthesis
+from voice.synthesizer.hparams import hparams
+from voice.synthesizer.synthesize import run_synthesis
 from utils.argutils import print_args
 
 
