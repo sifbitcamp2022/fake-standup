@@ -12,6 +12,8 @@ if __name__ == "__main__":
 
     vidcap = cv2.VideoCapture('C:\\Users\\iwann\\Downloads\\sample-mp4-file.mp4')
     success, image = vidcap.read()
-    while success:
+    i = 0
+    while i < 100:
+        i += 1
         video_queue.put(image)
         success, image = vidcap.read()
