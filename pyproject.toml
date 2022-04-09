@@ -11,6 +11,8 @@ opencv-python = "^4.5.5"
 ipykernel = "^6.12.1"
 pyvirtualcam = "^0.9.1"
 pygame = "^2.1.2"
+ffmpeg = "^1.4"
+moviepy = "^1.0.3"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
