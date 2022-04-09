@@ -10,11 +10,14 @@ def generate_rgb_noise(dim: tuple) -> np.ndarray:
     return (np.random.random(dim) * 256).astype(np.uint8)
 
 
-def play_video():
-    with pyvirtualcam.Camera(width=1280, height=720, fps=5) as cam:
-        frame = np.zeros((cam.height, cam.width, 3), np.uint8)  # RGB
+def play_video(queue):
+    with pyvirtualcam.Camera(width=1280, height=720, fps=25) as cam:
+        frame = generate_rgb_noise((cam.height, cam.width, 3))
         while True:
-            cam.send(generate_rgb_noise((cam.height, cam.width, 3)))
+            if not queue.empty():
+                frame = queue.get()
+                # frame = generate_rgb_noise((cam.height, cam.width, 3))
+            cam.send(frame)
             cam.sleep_until_next_frame()
 
 
