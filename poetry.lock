@@ -604,6 +604,18 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
+name = "soundcard"
+version = "0.4.1"
+description = "Play and record audio without resorting to CPython extensions"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[package.dependencies]
+cffi = "*"
+numpy = "*"
+
+[[package]]
 name = "stack-data"
 version = "0.2.0"
 description = "Extract data from python stack frames and tracebacks for informative displays"
@@ -699,7 +711,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "373976bf72e62bcdd1adab654dfa8db81fd019f510a1b2f8f9e96b21a2fef7c7"
+content-hash = "fc33ff5277994debec1219adf61767c48d217e69c0a2bfb6d683e238921a070a"
 
 [metadata.files]
 appnope = [
@@ -1182,6 +1194,10 @@ pyzmq = [
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+soundcard = [
+    {file = "SoundCard-0.4.1-py3-none-any.whl", hash = "sha256:a70d306a24f4d5a61f46f5b4ae6ea633628aecca00d723e2cefa6fe5a21e58df"},
+    {file = "SoundCard-0.4.1.tar.gz", hash = "sha256:cfc63b1a0480385565dd8124deb9a77a28303b73491c76b520108a88431eb5e2"},
 ]
 stack-data = [
     {file = "stack_data-0.2.0-py3-none-any.whl", hash = "sha256:999762f9c3132308789affa03e9271bbbe947bf78311851f4d485d8402ed858e"},
