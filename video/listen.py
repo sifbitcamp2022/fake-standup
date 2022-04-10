@@ -84,7 +84,7 @@ class MicrophoneStream(object):
             yield b"".join(data)
 
 
-def listen_print_loop(responses, search):
+def listen_print_loop(responses, search, callback):
     """Iterates through server responses and prints them.
 
     The responses passed is a generator that will block until a response
@@ -115,8 +115,8 @@ def listen_print_loop(responses, search):
         transcript = result.alternatives[0].transcript
 
         # Check if search is in the transcript
-        if "James" in transcript:
-            print("FOUND TARGET, DO SOMETHING")
+        if search in transcript:
+            callback()
 
         # Display interim results, but with a carriage return at the end of the
         # line, so subsequent lines will overwrite them.
@@ -143,14 +143,12 @@ def listen_print_loop(responses, search):
             num_chars_printed = 0
 
 
-def main():
+def main(callback, name="Ryan"):
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
     language_code = "en-US"  # a BCP-47 language tag
 
-    print("c4")
     client = speech.SpeechClient()
-    print("c5")
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=RATE,
@@ -160,7 +158,6 @@ def main():
     streaming_config = speech.StreamingRecognitionConfig(
         config=config, interim_results=True
     )
-    print("c3")
 
     with MicrophoneStream(RATE, CHUNK) as stream:
         audio_generator = stream.generator()
@@ -168,12 +165,11 @@ def main():
             speech.StreamingRecognizeRequest(audio_content=content)
             for content in audio_generator
         )
-        print("c2")
 
         responses = client.streaming_recognize(streaming_config, requests)
 
         # Now, put the transcription responses to use.
-        listen_print_loop(responses, "James")
+        listen_print_loop(responses, name, callback)
 
 
 if __name__ == "__main__":
