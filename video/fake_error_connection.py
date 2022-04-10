@@ -2,6 +2,7 @@ import numpy as np
 import time
 import pyvirtualcam
 from pygame import mixer
+import moviepy.editor as mp
 
 mixer.init(devicename='CABLE Input (VB-Audio Virtual Cable)')
 
@@ -10,18 +11,22 @@ def generate_rgb_noise(dim: tuple) -> np.ndarray:
     return (np.random.random(dim) * 256).astype(np.uint8)
 
 
-def play_video():
-    with pyvirtualcam.Camera(width=1280, height=720, fps=5) as cam:
-        frame = np.zeros((cam.height, cam.width, 3), np.uint8)  # RGB
+def play_video(queue):
+    with pyvirtualcam.Camera(width=320, height=240, fps=25) as cam:
         while True:
-            cam.send(generate_rgb_noise((cam.height, cam.width, 3)))
+            if not queue.empty():
+                frame = queue.get()
+            cam.send(frame)
             cam.sleep_until_next_frame()
 
 
-def play_music(count=1):
-    mixer.music.load("C:\\Users\\iwann\\Downloads\\sixflags.mp3")
-    mixer.music.play()
-    time.sleep(14)
-    if count == 10:
-        return
-    play_music(count + 1)
+def play_music(queue):
+    while True:
+        if not queue.empty():
+            file_path = queue.get()
+            mixer.music.load(file_path)
+            mixer.music.play()
+
+def write_audio(video_path: str, audio_path: str):
+    clip = mp.VideoFileClip(video_path)
+    clip.audio.write_audiofile(audio_path)

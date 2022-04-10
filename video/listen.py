@@ -14,6 +14,7 @@ RATE = 16000
 CHUNK = int(RATE / 10)  # 100ms
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'bitcamp-2022.json'
 
+
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
 
@@ -113,7 +114,7 @@ def listen_print_loop(responses, search):
         # Display the transcription of the top alternative.
         transcript = result.alternatives[0].transcript
 
-        ##Check if search is in the transcript
+        # Check if search is in the transcript
         if "James" in transcript:
             print("FOUND TARGET, DO SOMETHING")
 
@@ -147,7 +148,9 @@ def main():
     # for a list of supported languages.
     language_code = "en-US"  # a BCP-47 language tag
 
+    print("c4")
     client = speech.SpeechClient()
+    print("c5")
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=RATE,
@@ -157,6 +160,7 @@ def main():
     streaming_config = speech.StreamingRecognitionConfig(
         config=config, interim_results=True
     )
+    print("c3")
 
     with MicrophoneStream(RATE, CHUNK) as stream:
         audio_generator = stream.generator()
@@ -164,6 +168,7 @@ def main():
             speech.StreamingRecognizeRequest(audio_content=content)
             for content in audio_generator
         )
+        print("c2")
 
         responses = client.streaming_recognize(streaming_config, requests)
 
@@ -172,4 +177,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import multiprocessing
+    p = multiprocessing.Process(target=main)
+    p.start()
