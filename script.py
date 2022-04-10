@@ -1,9 +1,12 @@
 from multiprocessing import Process, Queue
-import cv2
-from video.fake_error_connection import play_video, play_music, write_audio
+from video.fake_error_connection import play_video, play_music, video_to_frames
 
 
 def coordinate(queue):
+    video_file = "result_voice.mp4"
+    audio_file = "result_audio.mp3"
+    frames = video_to_frames(video_file)
+    print("Frames processing done!")
     music_queue = Queue()
     p1 = Process(target=play_music, args=(music_queue,))
     p1.start()
@@ -15,14 +18,9 @@ def coordinate(queue):
     while True:
         if not queue.is_empty():
             queue.get()
-            video_file = "result_voice.mp4"
-            audio_file = "result_audio.mp3"
-            vidcap = cv2.VideoCapture(video_file)
-            success, image = vidcap.read()
             music_queue.put(audio_file)
-            while success:
-                video_queue.put(image)
-                success, image = vidcap.read()
+            for frame in frames:
+                video_queue.put(frame)
 
 
 if __name__ == "__main__":
