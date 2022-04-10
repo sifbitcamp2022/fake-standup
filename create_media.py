@@ -1,3 +1,10 @@
+from ftplib import MAXLINE
+from re import template
+from pydub import AudioSegment
+
+import os
+
+from voice.tts import TextToSpeech
 from os import listdir, path
 import numpy as np
 import scipy, cv2, os, sys, argparse, Wav2Lip.audio
@@ -7,7 +14,6 @@ from glob import glob
 import torch, Wav2Lip.face_detection
 from Wav2Lip.models import Wav2Lip as w2l
 import platform
-
 
 
 args = {
@@ -256,5 +262,32 @@ def make_video(face_path, audio_path, out_file):
 	command = 'ffmpeg -y -i {} -i {} -strict -2 -q:v 1 {}'.format(args["audio"], 'temp/result.avi', args["outfile"])
 	subprocess.call(command, shell=platform.system() != 'Windows')
 
-if __name__ == '__main__':
-	make_video("Wav2Lip/template_standup.mov", "nice1.wav", "bruh.mp4")
+def make_speech(text_path: str, voice_sample: str, out_file: str) -> None:
+    tts = TextToSpeech(voice_sample)
+    max_line = 0
+    with open(text_path, 'r') as f:
+        for line in f:
+            line = line.strip()
+            tts.generate_speech(line, os.path.join("speech_files", f"temp{max_line}.wav"))
+            max_line += 1
+    if max_line == 0:
+        raise Exception
+    
+    sound = AudioSegment.from_file(os.path.join("speech_files", "temp0.wav"))
+
+    for i in range(1, max_line):
+        new_sound = AudioSegment.from_file(os.path.join("speech_files", f"temp{i}.wav"))
+        sound += new_sound
+    
+    sound.export(out_file)
+
+
+if __name__ == "__main__":
+    read_text = "speech_files/petertext.txt"
+    voice_sample = "speech_files/peter_sample1.mp3"
+    intermediate_speech = "peter_deepfakeaud.wav"
+    template_video = "peter_template.move"
+    output_video = "petervid.mp4"
+
+    make_speech(read_text, voice_sample, intermediate_speech)
+    make_video(template_video, intermediate_speech, output_video)
