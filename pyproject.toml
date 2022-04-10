@@ -33,6 +33,7 @@ google-cloud-speech = "^2.13.1"
 googleapis-common-protos = "^1.56.0"
 pyvirtualcam = "^0.9.1"
 pygame = "^2.1.2"
+ffmpeg-python = "^0.2.0"
 
 [tool.poetry.dev-dependencies]
 
